@@ -38,6 +38,10 @@ namespace GestaoBiblioteca
                 .AddDefaultTokenProviders();
 
             services.AddScoped<ICategoriaRepository,CategoriaRepository>();
+            services.AddScoped<IAutorRepository, AutorRepository>();
+            services.AddScoped<ILivroRepository, LivroRepository>();
+            services.AddScoped<ILeitorRepository, LeitorRepository>();
+            services.AddScoped<IEmprestimoRepository, EmprestimoRepository>();
 
             services.AddControllersWithViews();
         }
