@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GestaoBiblioteca.Models
 {
-    public class Emprestimo
+    public class Emprestimo:IEntity
     {
         public int Id { get; set; }
 

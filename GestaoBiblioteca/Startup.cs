@@ -1,5 +1,6 @@
 using GestaoBiblioteca.Data;
 using GestaoBiblioteca.Models;
+using GestaoBiblioteca.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,6 +36,8 @@ namespace GestaoBiblioteca
             })
                 .AddEntityFrameworkStores<DataContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddScoped<ICategoriaRepository,CategoriaRepository>();
 
             services.AddControllersWithViews();
         }

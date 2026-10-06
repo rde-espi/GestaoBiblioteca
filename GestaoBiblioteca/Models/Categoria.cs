@@ -2,7 +2,7 @@
 
 namespace GestaoBiblioteca.Models
 {
-    public class Categoria
+    public class Categoria:IEntity
     {
         public int Id { get; set; }
 

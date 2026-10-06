@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GestaoBiblioteca.Models
 {
-    public class Livro
+    public class Livro:IEntity
     {
         public int Id { get; set; }
 
