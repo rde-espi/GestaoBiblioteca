@@ -1,0 +1,44 @@
+﻿@model GestaoBiblioteca.Models.Categoria
+
+@{
+    ViewData["Title"] = "Eliminar Categoria";
+}
+
+<h1>Eliminar Categoria</h1>
+
+<h3>Tem a certeza de que pretende eliminar esta categoria?</h3>
+
+<hr />
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+
+        <input type="submit"
+               value="Eliminar"
+               class="btn btn-danger" />
+
+        <a asp-action="Index"
+           class="btn btn-secondary">
+            Voltar
+        </a>
+    </form>
+</div>
