@@ -1,4 +1,4 @@
-﻿using GestaoBiblioteca.Models;
+﻿using GestaoBiblioteca.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

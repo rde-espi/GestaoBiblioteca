@@ -1,0 +1,64 @@
+﻿@model GestaoBiblioteca.Data.Entities.Livro
+
+@{
+    ViewData["Title"] = "Eliminar Livro";
+}
+
+<h1>Eliminar Livro</h1>
+
+<h3>Tem a certeza de que pretende eliminar este livro?</h3>
+
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-3">
+        Título
+    </dt>
+    <dd class="col-sm-9">
+        @Model.Titulo
+    </dd>
+
+    <dt class="col-sm-3">
+        Ano de Publicação
+    </dt>
+    <dd class="col-sm-9">
+        @Model.AnoPublicacao
+    </dd>
+
+    <dt class="col-sm-3">
+        Categoria
+    </dt>
+    <dd class="col-sm-9">
+        @Model.Categoria?.Nome
+    </dd>
+
+    <dt class="col-sm-3">
+        Autor(es)
+    </dt>
+    <dd class="col-sm-9">
+        @if (Model.LivrosAutores != null && Model.LivrosAutores.Any())
+        {
+            @string.Join(", ", Model.LivrosAutores.Select(la => la.Autor.Nome))
+        }
+    </dd>
+
+    <dt class="col-sm-3">
+        Disponível
+    </dt>
+    <dd class="col-sm-9">
+        @(Model.Disponivel ? "Sim" : "Não")
+    </dd>
+</dl>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+
+    <input type="submit"
+           value="Eliminar"
+           class="btn btn-danger" />
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Voltar
+    </a>
+</form>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace GestaoBiblioteca.Models
+namespace GestaoBiblioteca.Data.Entities
 {
     public class Leitor:IEntity
     {

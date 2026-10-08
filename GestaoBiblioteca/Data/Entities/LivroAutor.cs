@@ -1,4 +1,4 @@
-﻿namespace GestaoBiblioteca.Models
+﻿namespace GestaoBiblioteca.Data.Entities
 {
     public class LivroAutor
     {

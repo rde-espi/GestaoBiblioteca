@@ -1,4 +1,4 @@
-﻿using GestaoBiblioteca.Models;
+﻿using GestaoBiblioteca.Data.Entities;
 using GestaoBiblioteca.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;

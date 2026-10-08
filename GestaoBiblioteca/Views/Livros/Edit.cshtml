@@ -1,0 +1,110 @@
+﻿@model GestaoBiblioteca.Models.LivroViewModel
+
+@{
+    ViewData["Title"] = "Editar Livro";
+}
+
+<h1>Editar Livro</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="Livro.Id" />
+
+            <div class="form-group">
+                <label asp-for="Livro.Titulo" class="control-label"></label>
+                <input asp-for="Livro.Titulo" class="form-control" />
+                <span asp-validation-for="Livro.Titulo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Livro.AnoPublicacao" class="control-label">
+                    Ano de Publicação
+                </label>
+                <input asp-for="Livro.AnoPublicacao" class="form-control" />
+                <span asp-validation-for="Livro.AnoPublicacao"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Livro.CategoriaId" class="control-label">
+                    Categoria
+                </label>
+
+                <select asp-for="Livro.CategoriaId" class="form-control">
+                    <option value="">Selecione uma categoria</option>
+
+                    @foreach (var categoria in Model.Categorias)
+                    {
+                        <option value="@categoria.Id">
+                            @categoria.Nome
+                        </option>
+                    }
+                </select>
+
+                <span asp-validation-for="Livro.CategoriaId"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Autor(es)</label>
+
+                @foreach (var autor in Model.Autores)
+                {
+                    <div class="form-check">
+
+                        @if (Model.AutoresSelecionados != null &&
+                             Model.AutoresSelecionados.Contains(autor.Id))
+                        {
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   name="AutoresSelecionados"
+                                   value="@autor.Id"
+                                   id="autor_@autor.Id"
+                                   checked />
+                        }
+                        else
+                        {
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   name="AutoresSelecionados"
+                                   value="@autor.Id"
+                                   id="autor_@autor.Id" />
+                        }
+
+                        <label class="form-check-label"
+                               for="autor_@autor.Id">
+                            @autor.Nome
+                        </label>
+                    </div>
+                }
+
+                <span asp-validation-for="AutoresSelecionados"
+                      class="text-danger"></span>
+            </div>
+
+            <input type="hidden" asp-for="Livro.Disponivel" />
+
+            <div class="form-group">
+                <input type="submit"
+                       value="Guardar"
+                       class="btn btn-primary" />
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+                    Voltar
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

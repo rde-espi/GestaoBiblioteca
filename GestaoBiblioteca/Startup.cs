@@ -1,5 +1,5 @@
 using GestaoBiblioteca.Data;
-using GestaoBiblioteca.Models;
+using GestaoBiblioteca.Data.Entities;
 using GestaoBiblioteca.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

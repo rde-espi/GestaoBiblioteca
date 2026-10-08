@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace GestaoBiblioteca.Models
+namespace GestaoBiblioteca.Data.Entities
 {
     public class Emprestimo:IEntity
     {

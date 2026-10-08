@@ -1,5 +1,5 @@
 ﻿using GestaoBiblioteca.Data;
-using GestaoBiblioteca.Models;
+using GestaoBiblioteca.Data.Entities;
 
 namespace GestaoBiblioteca.Repositories
 {

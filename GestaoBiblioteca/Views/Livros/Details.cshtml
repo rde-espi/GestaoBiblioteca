@@ -1,0 +1,62 @@
+﻿@model GestaoBiblioteca.Data.Entities.Livro
+
+@{
+    ViewData["Title"] = "Detalhes do Livro";
+}
+
+<h1>Detalhes do Livro</h1>
+
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-3">
+        Título
+    </dt>
+    <dd class="col-sm-9">
+        @Model.Titulo
+    </dd>
+
+    <dt class="col-sm-3">
+        Ano de Publicação
+    </dt>
+    <dd class="col-sm-9">
+        @Model.AnoPublicacao
+    </dd>
+
+    <dt class="col-sm-3">
+        Categoria
+    </dt>
+    <dd class="col-sm-9">
+        @Model.Categoria?.Nome
+    </dd>
+
+    <dt class="col-sm-3">
+        Autor(es)
+    </dt>
+    <dd class="col-sm-9">
+        @if (Model.LivrosAutores != null && Model.LivrosAutores.Any())
+        {
+            @string.Join(", ", Model.LivrosAutores.Select(la => la.Autor.Nome))
+        }
+    </dd>
+
+    <dt class="col-sm-3">
+        Disponível
+    </dt>
+    <dd class="col-sm-9">
+        @(Model.Disponivel ? "Sim" : "Não")
+    </dd>
+</dl>
+
+<div>
+    <a asp-action="Edit"
+       asp-route-id="@Model.Id"
+       class="btn btn-primary">
+        Editar
+    </a>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Voltar
+    </a>
+</div>

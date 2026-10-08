@@ -1,5 +1,5 @@
 ﻿using GestaoBiblioteca.Data;
-using GestaoBiblioteca.Models;
+using GestaoBiblioteca.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
