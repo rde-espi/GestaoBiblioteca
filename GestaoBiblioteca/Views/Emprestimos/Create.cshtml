@@ -1,0 +1,107 @@
+﻿@model GestaoBiblioteca.Models.EmprestimoViewModel
+
+@{
+    ViewData["Title"] = "Novo Empréstimo";
+}
+
+<h1>Novo Empréstimo</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Emprestimo.LeitorId"
+                       class="control-label">
+                    Leitor
+                </label>
+
+                <select asp-for="Emprestimo.LeitorId"
+                        class="form-control">
+                    <option value="">Selecione um leitor</option>
+
+                    @foreach (var leitor in Model.Leitores)
+                    {
+                        <option value="@leitor.Id">
+                            @leitor.Nome
+                        </option>
+                    }
+                </select>
+
+                <span asp-validation-for="Emprestimo.LeitorId"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Emprestimo.LivroId"
+                       class="control-label">
+                    Livro
+                </label>
+
+                <select asp-for="Emprestimo.LivroId"
+                        class="form-control">
+                    <option value="">Selecione um livro</option>
+
+                    @foreach (var livro in Model.Livros)
+                    {
+                        <option value="@livro.Id">
+                            @livro.Titulo
+                        </option>
+                    }
+                </select>
+
+                <span asp-validation-for="Emprestimo.LivroId"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Emprestimo.DataEmprestimo"
+                       class="control-label">
+                    Data do Empréstimo
+                </label>
+
+                <input asp-for="Emprestimo.DataEmprestimo"
+                       type="date"
+                       class="form-control" />
+
+                <span asp-validation-for="Emprestimo.DataEmprestimo"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Emprestimo.DataPrevistaDevolucao"
+                       class="control-label">
+                    Data Prevista de Devolução
+                </label>
+
+                <input asp-for="Emprestimo.DataPrevistaDevolucao"
+                       type="date"
+                       class="form-control" />
+
+                <span asp-validation-for="Emprestimo.DataPrevistaDevolucao"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit"
+                       value="Criar"
+                       class="btn btn-primary" />
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+                    Voltar
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
