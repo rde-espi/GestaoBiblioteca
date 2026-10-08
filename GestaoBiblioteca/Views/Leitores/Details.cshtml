@@ -1,0 +1,45 @@
+﻿@model GestaoBiblioteca.Data.Entities.Leitor
+
+@{
+    ViewData["Title"] = "Detalhes do Leitor";
+}
+
+<h1>Detalhes do Leitor</h1>
+
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-3">
+        Nome
+    </dt>
+    <dd class="col-sm-9">
+        @Model.Nome
+    </dd>
+
+    <dt class="col-sm-3">
+        Email
+    </dt>
+    <dd class="col-sm-9">
+        @Model.Email
+    </dd>
+
+    <dt class="col-sm-3">
+        Telefone
+    </dt>
+    <dd class="col-sm-9">
+        @Model.Telefone
+    </dd>
+</dl>
+
+<div>
+    <a asp-action="Edit"
+       asp-route-id="@Model.Id"
+       class="btn btn-primary">
+        Editar
+    </a>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Voltar
+    </a>
+</div>

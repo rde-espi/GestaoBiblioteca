@@ -1,0 +1,43 @@
+﻿@model IEnumerable<GestaoBiblioteca.Data.Entities.Leitor>
+
+@{
+    ViewData["Title"] = "Leitores";
+}
+
+<h1>Leitores</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Novo Leitor</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nome</td>
+                <td>@item.Email</td>
+                <td>@item.Telefone</td>
+                <td>
+                    <a asp-action="Edit"
+                       asp-route-id="@item.Id">Editar</a> |
+
+                    <a asp-action="Details"
+                       asp-route-id="@item.Id">Detalhes</a> |
+
+                    <a asp-action="Delete"
+                       asp-route-id="@item.Id">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
