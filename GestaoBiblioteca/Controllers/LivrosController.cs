@@ -2,6 +2,7 @@
 using GestaoBiblioteca.Models;
 using GestaoBiblioteca.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -157,9 +158,23 @@ namespace GestaoBiblioteca.Controllers
                 return NotFound();
             }
 
-            await _livroRepository.DeleteAsync(livro);
+            try
+            {
+                await _livroRepository.DeleteAsync(livro);
 
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.Message.Contains("DELETE"))
+                {
+                    ViewBag.ErrorTitle = $"{livro.Titulo} possui empréstimos associados.";
+
+                    ViewBag.ErrorMessage = $"O livro <strong>{livro.Titulo}</strong> não pode ser eliminado porque possui histórico de empréstimos.";
+                }
+
+                return View("Error");
+            }
         }
     }
 }

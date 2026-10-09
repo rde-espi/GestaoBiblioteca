@@ -4,14 +4,16 @@ using GestaoBiblioteca.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GestaoBiblioteca.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20261009095826_RestrictLeitorEmprestimo")]
+    partial class RestrictLeitorEmprestimo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -368,7 +370,7 @@ namespace GestaoBiblioteca.Migrations
                     b.HasOne("GestaoBiblioteca.Data.Entities.Livro", "Livro")
                         .WithMany()
                         .HasForeignKey("LivroId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Leitor");

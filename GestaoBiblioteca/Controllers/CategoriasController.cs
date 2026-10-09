@@ -1,6 +1,7 @@
 ﻿using GestaoBiblioteca.Data.Entities;
 using GestaoBiblioteca.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -117,9 +118,21 @@ namespace GestaoBiblioteca.Controllers
                 return NotFound();
             }
 
-            await _categoriaRepository.DeleteAsync(categoria);
+            try
+            {
+                await _categoriaRepository.DeleteAsync(categoria);
 
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
+            }
+            catch(DbUpdateException ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.Message.Contains("DELETE"))
+                {
+                    ViewBag.ErrorTitle = $"{categoria.Nome} está a ser utilizada";
+                    ViewBag.ErrorMessage = $"A categoria <strong>{categoria.Nome}</strong> não pode ser eliminada porque existem livros associados";
+                }
+                return View("Error");
+            }
         }
     }
 }
