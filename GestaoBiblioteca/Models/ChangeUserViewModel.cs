@@ -7,38 +7,32 @@ namespace GestaoBiblioteca.Models
 {
     public class ChangeUserViewModel
     {
-        [Required]
-        [Display(Name = "First Name")]
-        public string FirtsName { get; set; }
+        [Required(ErrorMessage = "O nome é obrigatório.")]
+        [MaxLength(50)]
+        [Display(Name = "Nome")]
+        public string FirstName { get; set; }
 
 
-        [Required]
-        [Display(Name = "Last Name")]
+        [Required(ErrorMessage = "O apelido é obrigatório.")]
+        [MaxLength(50)]
+        [Display(Name = "Apelido")]
         public string LastName { get; set; }
 
 
-        [MaxLength(100, ErrorMessage = "The field {0} only can contain {1} characters length.")]
+        [MaxLength(150)]
+        [Display(Name = "Morada")]
         public string Address { get; set; }
 
 
-        [MaxLength(20, ErrorMessage = "The field {0} only can contain {1} characters length.")]
+        [Phone(ErrorMessage = "Introduza um número de telefone válido.")]
+        [Display(Name = "Telefone")]
         public string PhoneNumber { get; set; }
 
 
-        [Display(Name = "City")]
-        [Range(1, int.MaxValue, ErrorMessage = "You must select a city.")]
-        public int CityId { get; set; }
-
-
-        public IEnumerable<SelectListItem> Cities { get; set; }
-
-
-        [Display(Name = "Country")]
-        [Range(1, int.MaxValue, ErrorMessage = "You must select a country.")]
-        public int CountryId { get; set; }
-
-
-        public IEnumerable<SelectListItem> Countries { get; set; }
+        [Required(ErrorMessage = "O email é obrigatório.")]
+        [EmailAddress(ErrorMessage = "Introduza um email válido.")]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
     }
 }
 

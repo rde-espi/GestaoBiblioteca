@@ -1,6 +1,7 @@
 ﻿using GestaoBiblioteca.Data.Entities;
 using GestaoBiblioteca.Helpers;
 using GestaoBiblioteca.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -77,7 +78,11 @@ namespace GestaoBiblioteca.Controllers
                     user = new User
                     {
                         UserName = model.UserName,
-                        Email = model.UserName
+                        Email = model.UserName,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Address = model.Address,
+                        PhoneNumber = model.PhoneNumber
                     };
 
                     var result = await _userHelper.AddUserAsync( user, model.Password);
@@ -113,6 +118,66 @@ namespace GestaoBiblioteca.Controllers
             return View(model);
         }
 
+        [Authorize]
+        public async Task<IActionResult> ChangeUser()
+        {
+            var user = await _userHelper.GetUserByEmailAsync(User.Identity.Name);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var model = new ChangeUserViewModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Address = user.Address,
+                PhoneNumber = user.PhoneNumber,
+                Email = user.Email
+            };
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult>ChangeUser(ChangeUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userHelper.GetUserByEmailAsync (User.Identity.Name);
+
+                if(user == null)
+                {
+                    return NotFound();
+                }
+
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.Address = model.Address;
+                user.PhoneNumber = model.PhoneNumber;
+                user.Email = model.Email;
+                user.UserName = model.Email;
+
+                var result = await _userHelper.UpdateUserAsync (user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                foreach(var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return View(model);
+        }
+
+        [Authorize]
         public IActionResult ChangePassword()
         {
             return View();
