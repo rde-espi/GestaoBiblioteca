@@ -304,7 +304,13 @@ namespace GestaoBiblioteca.Controllers
 
                 if (response.IsSucess)
                 {
-                    this.ViewBag.Message = "The instructions to recover your password has been sent to email.";
+                    ViewBag.Message = "O email de recuperação foi enviado com sucesso.";
+                }
+                else
+                {
+                    ModelState.AddModelError(
+                        string.Empty,
+                        "Erro ao enviar o email: " + response.Message);
                 }
 
                 return this.View();
