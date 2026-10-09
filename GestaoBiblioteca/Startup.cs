@@ -1,5 +1,6 @@
 using GestaoBiblioteca.Data;
 using GestaoBiblioteca.Data.Entities;
+using GestaoBiblioteca.Helpers;
 using GestaoBiblioteca.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,20 +29,32 @@ namespace GestaoBiblioteca
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddIdentity<User, IdentityRole>(cfg =>
             {
+                cfg.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+                cfg.SignIn.RequireConfirmedEmail = false;
                 cfg.User.RequireUniqueEmail = true;
+                cfg.Password.RequireDigit = false;
+                cfg.Password.RequireLowercase = false;
+                cfg.Password.RequiredUniqueChars = 0;
+                cfg.Password.RequireUppercase = false;
+                cfg.Password.RequireNonAlphanumeric = false;
+                cfg.Password.RequiredLength = 6;
+
+
             })
-                .AddEntityFrameworkStores<DataContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<DataContext>();
+
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<ICategoriaRepository,CategoriaRepository>();
             services.AddScoped<IAutorRepository, AutorRepository>();
             services.AddScoped<ILivroRepository, LivroRepository>();
             services.AddScoped<ILeitorRepository, LeitorRepository>();
             services.AddScoped<IEmprestimoRepository, EmprestimoRepository>();
+            services.AddScoped<IUserHelper, UserHelper>();
+            services.AddScoped<IMailHelper, MailHelper>();
 
             services.AddControllersWithViews();
         }

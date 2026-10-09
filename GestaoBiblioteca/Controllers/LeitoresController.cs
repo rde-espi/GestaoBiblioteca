@@ -1,5 +1,6 @@
 ﻿using GestaoBiblioteca.Data.Entities;
 using GestaoBiblioteca.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace GestaoBiblioteca.Controllers
 {
+    [Authorize]
     public class LeitoresController : Controller
     {
         private readonly ILeitorRepository _leitorRepository;

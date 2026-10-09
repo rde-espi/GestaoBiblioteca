@@ -1,11 +1,13 @@
 ﻿using GestaoBiblioteca.Data.Entities;
 using GestaoBiblioteca.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace GestaoBiblioteca.Controllers
 {
+    [Authorize]
     public class AutoresController : Controller
     {
         private readonly IAutorRepository _autorRepository;
