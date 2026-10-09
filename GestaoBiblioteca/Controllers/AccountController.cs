@@ -36,6 +36,7 @@ namespace GestaoBiblioteca.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -50,7 +51,7 @@ namespace GestaoBiblioteca.Controllers
                     return this.RedirectToAction("Index", "Home");
                 }
             }
-            this.ModelState.AddModelError(string.Empty, "Failed  to Login");
+            this.ModelState.AddModelError( string.Empty, "Não foi possível iniciar sessão. Verifique o email e a palavra-passe.");
             return View(model);
         }
 
@@ -142,6 +143,7 @@ namespace GestaoBiblioteca.Controllers
 
 
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult>ChangeUser(ChangeUserViewModel model)
         {
@@ -183,6 +185,8 @@ namespace GestaoBiblioteca.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (ModelState.IsValid)
@@ -280,6 +284,7 @@ namespace GestaoBiblioteca.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RecoverPassword(RecoverPasswordViewModel model)
         {
             if (this.ModelState.IsValid)
@@ -287,7 +292,7 @@ namespace GestaoBiblioteca.Controllers
                 var user = await _userHelper.GetUserByEmailAsync(model.Email);
                 if (user == null)
                 {
-                    ModelState.AddModelError(string.Empty, "The email doesn't correspont to a registered user.");
+                    ModelState.AddModelError( string.Empty, "Não existe nenhum utilizador registado com este endereço de email.");
                     return View(model);
                 }
 
@@ -298,9 +303,13 @@ namespace GestaoBiblioteca.Controllers
                     "Account",
                     new { token = myToken }, protocol: HttpContext.Request.Scheme);
 
-                Response response = _mailHelper.SendEmail(model.Email, "Shop Password Reset", $"<h1>Shop Password Reset</h1>" +
-                $"To reset the password click in this link:</br></br>" +
-                $"<a href = \"{link}\">Reset Password</a>");
+                Response response = _mailHelper.SendEmail(
+                    model.Email,
+                    "Gestão Biblioteca - Recuperação de Palavra-passe",
+                    "<h1>Recuperação de Palavra-passe</h1>" +
+                    "<p>Recebemos um pedido para redefinir a sua palavra-passe.</p>" +
+                    "<p>Clique na ligação abaixo para continuar:</p>" +
+                    $"<a href=\"{link}\">Redefinir Palavra-passe</a>");
 
                 if (response.IsSucess)
                 {
@@ -327,6 +336,7 @@ namespace GestaoBiblioteca.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
             var user = await _userHelper.GetUserByEmailAsync(model.UserName);
@@ -335,15 +345,15 @@ namespace GestaoBiblioteca.Controllers
                 var result = await _userHelper.ResetPasswordAsync(user, model.Token, model.Password);
                 if (result.Succeeded)
                 {
-                    this.ViewBag.Message = "Password reset successful.";
+                    this.ViewBag.Message = "A sua palavra-passe foi redefinida com sucesso. Já pode iniciar sessão.";
                     return View();
                 }
 
-                this.ViewBag.Message = "Error while resetting the password.";
+                this.ViewBag.Message = "Não foi possível redefinir a palavra-passe. Verifique os dados introduzidos ou solicite uma nova ligação de recuperação.";
                 return View(model);
             }
 
-            this.ViewBag.Message = "User not found.";
+            this.ViewBag.Message = "Não foi encontrado nenhum utilizador com o endereço de email indicado.";
             return View(model);
         }
 
