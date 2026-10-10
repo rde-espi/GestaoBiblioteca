@@ -1,6 +1,7 @@
 ﻿using GestaoBiblioteca.Data.Entities;
 using GestaoBiblioteca.Helpers;
 using GestaoBiblioteca.Models;
+using GestaoBiblioteca.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -19,11 +20,13 @@ namespace GestaoBiblioteca.Controllers
         private readonly IUserHelper _userHelper;
         private readonly IConfiguration _configuration;
         private readonly IMailHelper _mailHelper;
+        private readonly ILeitorRepository _leitorRepository;
 
-        public AccountController(IUserHelper userHelper, IConfiguration configuration, IMailHelper mailHelper)
+        public AccountController(IUserHelper userHelper, IConfiguration configuration, IMailHelper mailHelper,ILeitorRepository leitorRepository)
         {
             _configuration = configuration;
             _mailHelper = mailHelper;
+            _leitorRepository = leitorRepository;
             _userHelper = userHelper;
         }
 
@@ -42,6 +45,12 @@ namespace GestaoBiblioteca.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _userHelper.LoginAsync(model);
+                if (result.IsNotAllowed)
+                {
+                    ModelState.AddModelError( string.Empty,"A sua conta ainda não foi confirmada. Consulte o seu email e clique no link de confirmação.");
+
+                    return View(model);
+                }
                 if (result.Succeeded)
                 {
                     if (this.Request.Query.Keys.Contains("ReturnUrl"))
@@ -90,19 +99,50 @@ namespace GestaoBiblioteca.Controllers
 
                     if (result.Succeeded)
                     {
-                        var loginModel = new LoginViewModel
-                        {
-                            UserName = model.UserName,
-                            Password = model.Password,
-                            RememberMe = false
-                        };
+                        await _userHelper.AddUserToRoleAsync(user, "Leitor");
 
-                        var loginResult = await _userHelper.LoginAsync(loginModel);
+                        var leitor = _leitorRepository.GetAll()
+                            .FirstOrDefault(l => l.Email == user.Email && l.UserId == null);
 
-                        if (loginResult.Succeeded)
+                        if (leitor != null)
                         {
-                            return RedirectToAction("Index", "Home");
+                            leitor.UserId = user.Id;
+                            await _leitorRepository.UpdateAsync(leitor);
                         }
+                        else
+                        {
+                            await _leitorRepository.CreateAsync(new Leitor
+                            {
+                                Nome = $"{user.FirstName} {user.LastName}".Trim(),
+                                Email = user.Email,
+                                Telefone = user.PhoneNumber,
+                                UserId = user.Id
+                            });
+                        }
+
+                        string myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+
+                        string tokenLink = Url.Action("ConfirmarEmail", "Account", new
+                        {
+                            userId = user.Id,
+                            token = myToken
+                        }, protocol: HttpContext.Request.Scheme);
+
+                        var response = _mailHelper.SendEmail(
+                            user.Email,
+                            "Confirmação de email - Gestão Biblioteca",
+                            $"<h2>Confirmação de email</h2>" +
+                            $"<p>Obrigado pelo seu registo na Gestão Biblioteca.</p>" +
+                            $"<p>Clique no link seguinte para confirmar o seu email:</p>" +
+                            $"<a href=\"{System.Net.WebUtility.HtmlEncode(tokenLink)}\">Confirmar email</a>"
+                        );
+
+                        TempData["Message"] =
+                            "O seu registo foi efetuado com sucesso. " +
+                            "Enviámos um email de confirmação. " +
+                            "Confirme o seu endereço de email antes de iniciar sessão.";
+
+                        return RedirectToAction("Login", "Account");
                     }
 
                     foreach (var error in result.Errors)
@@ -256,7 +296,7 @@ namespace GestaoBiblioteca.Controllers
             return BadRequest();
         }
 
-        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        public async Task<IActionResult> ConfirmarEmail(string userId, string token)
         {
             if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
             {

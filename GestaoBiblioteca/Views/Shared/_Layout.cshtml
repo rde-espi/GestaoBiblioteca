@@ -46,23 +46,23 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-controller="Categorias"
-                               asp-action="Index">
-                                Categorias
-                            </a>
-                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"
+                                asp-controller="Categorias"
+                                asp-action="Index">Categorias</a>
+                            </li>
+                        }
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-controller="Autores"
-                               asp-action="Index">
-                                Autores
-                            </a>
-                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"
+                                asp-controller="Autores"
+                                asp-action="Index">Autores</a>
+                            </li>
+                        }
 
                         <li class="nav-item">
                             <a class="nav-link text-dark"
@@ -73,22 +73,22 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-controller="Leitores"
-                               asp-action="Index">
-                                Leitores
-                            </a>
-                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"
+                                asp-controller="Leitores"
+                                asp-action="Index">Leitores</a>
+                            </li>
+}
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-controller="Emprestimos"
-                               asp-action="Index">
-                                Empréstimos
-                            </a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="nav-link text-dark"
+                                asp-controller="Emprestimos"
+                                asp-action="Index">Empréstimos</a>
+                            }
                         </li>
 
                         <li class="nav-item">

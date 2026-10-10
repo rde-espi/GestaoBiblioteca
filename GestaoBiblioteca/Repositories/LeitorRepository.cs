@@ -1,5 +1,7 @@
 ﻿using GestaoBiblioteca.Data;
 using GestaoBiblioteca.Data.Entities;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace GestaoBiblioteca.Repositories
 {
@@ -10,6 +12,11 @@ namespace GestaoBiblioteca.Repositories
         public LeitorRepository(DataContext context):base(context)
         {
             _context = context;
+        }
+
+        public Task<Leitor> GetByUserIdAsync(string userId)
+        {
+            return _context.Leitores.FirstOrDefaultAsync(x => x.UserId == userId);
         }
     }
 }

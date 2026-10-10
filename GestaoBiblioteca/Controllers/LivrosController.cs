@@ -29,6 +29,7 @@ namespace GestaoBiblioteca.Controllers
             return View(_livroRepository.GetAllWithDetails().OrderBy(l => l.Categoria).OrderBy(c => c.Titulo));
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             var model = new LivroViewModel
@@ -45,6 +46,7 @@ namespace GestaoBiblioteca.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(LivroViewModel model)
@@ -84,6 +86,7 @@ namespace GestaoBiblioteca.Controllers
             return View(livro);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if(id == null)
@@ -111,6 +114,7 @@ namespace GestaoBiblioteca.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(LivroViewModel model)
@@ -132,6 +136,7 @@ namespace GestaoBiblioteca.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if(id == null)
@@ -149,6 +154,7 @@ namespace GestaoBiblioteca.Controllers
             return View(livro);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

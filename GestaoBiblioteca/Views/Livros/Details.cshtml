@@ -52,15 +52,14 @@
          alt="Capa de @Model.Titulo"
          class="img-thumbnail"
          style="max-width: 180px; max-height: 260px; object-fit: contain;"
-         onerror="this.onerror=null;this.src='/images/noimage.png';" />
+         onerror="this.onerror=null;this.src='/images/noimage.jpg';" />
 </div>
 
 <div>
-    <a asp-action="Edit"
-       asp-route-id="@Model.Id"
-       class="btn btn-primary">
-        Editar
-    </a>
+    @if (User.IsInRole("Admin"))
+{
+    <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+}
 
     <a asp-action="Index"
        class="btn btn-secondary">

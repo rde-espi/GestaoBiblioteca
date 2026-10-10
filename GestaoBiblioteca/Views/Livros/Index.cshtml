@@ -6,15 +6,15 @@
 
 <h1>Livros</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Novo Livro</a>
-</p>
-
+@if (User.IsInRole("Admin"))
+{
+    <a asp-action="Create" class="btn btn-primary">Criar Novo Livro</a>
+}
 <table class="table">
     <thead>
         <tr>
-            <th>Título</th>
             <th>Capa</th>
+            <th>Título</th>
             <th>Ano</th>
             <th>Categoria</th>
             <th>Autor(es)</th>
@@ -32,7 +32,7 @@
                     alt="Capa de @item.Titulo" 
                     style="width: 55px; height: 80px; object-fit: contain;" 
                     loading="lazy" 
-                    onerror="this.onerror=null;this.src='/images/noimage.png';" />
+                    onerror="this.onerror=null;this.src='/images/noimage.jpg';" />
                 </td>
                 <td>
                     @item.Titulo
@@ -58,9 +58,13 @@
                 </td>
 
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                    }
+                    
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
                 </td>
             </tr>
         }

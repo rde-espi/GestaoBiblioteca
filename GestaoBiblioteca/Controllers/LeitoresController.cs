@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GestaoBiblioteca.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class LeitoresController : Controller
     {
         private readonly ILeitorRepository _leitorRepository;

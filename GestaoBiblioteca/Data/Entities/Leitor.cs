@@ -18,6 +18,9 @@ namespace GestaoBiblioteca.Data.Entities
 
         [MaxLength(20)]
         public string Telefone { get; set; }
+        public string UserId { get; set; }
+
+        public User User { get; set; }
 
         public ICollection<Emprestimo> Emprestimos { get; set; }
     }

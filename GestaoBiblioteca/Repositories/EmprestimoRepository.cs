@@ -18,7 +18,7 @@ namespace GestaoBiblioteca.Repositories
 
         public async Task<bool> CreateEmprestimoAsync(Emprestimo emprestimo)
         {
-            var livro = await _context.Livros.FirstOrDefaultAsync(l => l.Id == emprestimo.LeitorId);
+            var livro = await _context.Livros.FirstOrDefaultAsync(l => l.Id == emprestimo.LivroId);
 
             if(livro == null || !livro.Disponivel)
             {
@@ -38,7 +38,7 @@ namespace GestaoBiblioteca.Repositories
                 .Include(e => e.Livro)
                 .FirstOrDefaultAsync(e => e.Id == id);
 
-            if(emprestimo == null != emprestimo.DataDevolucao.HasValue)
+            if(emprestimo == null || emprestimo.DataDevolucao.HasValue)
             {
                 return false;
             }

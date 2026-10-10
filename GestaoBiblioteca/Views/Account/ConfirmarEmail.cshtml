@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Confirmação de Email";
+}
+
+<div class="container mt-5">
+    <div class="text-center">
+
+        <h2>Confirmação de Email</h2>
+
+        <div class="alert alert-success mt-4">
+            <h4>Email confirmado com sucesso!</h4>
+
+            <p>
+                Obrigado por confirmar o seu endereço de email.
+                A sua conta está agora ativa e já pode iniciar sessão
+                na Gestão Biblioteca.
+            </p>
+        </div>
+
+        <a asp-controller="Account"
+           asp-action="Login"
+           class="btn btn-primary mt-3">
+            Iniciar Sessão
+        </a>
+
+    </div>
+</div>

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace GestaoBiblioteca.Controllers
@@ -21,9 +22,22 @@ namespace GestaoBiblioteca.Controllers
             _leitorRepository = leitorRepository;
             _livroRepository = livroRepository;
         }
+
+
         public IActionResult Index()
         {
-            return View(_emprestimoRepository.GetAllWithDetails().OrderByDescending(e => e.DataEmprestimo));
+            var emprestimos = _emprestimoRepository
+                .GetAllWithDetails();
+
+            if (!User.IsInRole("Admin"))
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                emprestimos = emprestimos
+                    .Where(e => e.Leitor != null && e.Leitor.UserId == userId);
+            }
+
+            return View(emprestimos.OrderByDescending(e => e.DataEmprestimo));
         }
 
         public async Task<IActionResult> Create()
@@ -41,11 +55,26 @@ namespace GestaoBiblioteca.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult>Create(EmprestimoViewModel model)
         {
-            if(model.Emprestimo.DataPrevistaDevolucao <= model.Emprestimo.DataEmprestimo)
+            if (!User.IsInRole("Admin"))
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                var leitor = await _leitorRepository.GetByUserIdAsync(userId);
+
+                if (leitor == null)
+                {
+                    return NotFound("Não existe um leitor associado à conta autenticada.");
+                }
+
+                model.Emprestimo.LeitorId = leitor.Id;
+
+                ModelState.Remove("Emprestimo.LeitorId");
+            }
+            if (model.Emprestimo.DataPrevistaDevolucao <= model.Emprestimo.DataEmprestimo)
             {
                 ModelState.AddModelError("Emprestimo.DataPrevistaDevolucao", "A data prevista de devolução deve ser posterior à data do empréstimo");
             }
-
+            
             if (ModelState.IsValid)
             {
                 var criado = await _emprestimoRepository.CreateEmprestimoAsync(model.Emprestimo);
@@ -72,11 +101,22 @@ namespace GestaoBiblioteca.Controllers
             }
 
             var emprestimo = await _emprestimoRepository.GetByIdWithDetailsAsync(id.Value);
-
-            if(emprestimo == null)
+            if (emprestimo == null)
             {
                 return NotFound();
             }
+
+            if (!User.IsInRole("Admin"))
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (string.IsNullOrEmpty(userId) || emprestimo.Leitor.UserId != userId)
+                {
+                    return Forbid();
+                }
+            }
+
+            
 
             return View(emprestimo);
         }
@@ -85,6 +125,23 @@ namespace GestaoBiblioteca.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Devolver(int id)
         {
+            var emprestimo = await _emprestimoRepository.GetByIdWithDetailsAsync(id);
+
+            if (emprestimo == null)
+            {
+                return NotFound();
+            }
+
+            if (!User.IsInRole("Admin"))
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (string.IsNullOrEmpty(userId) || emprestimo.Leitor?.UserId != userId)
+                {
+                    return Forbid();
+                }
+            }
+
             var devolvido = await _emprestimoRepository.DevolverAsync(id);
 
             if (!devolvido)
@@ -92,7 +149,7 @@ namespace GestaoBiblioteca.Controllers
                 return NotFound();
             }
 
-            return RedirectToAction(nameof(Details), new {id});
+            return RedirectToAction(nameof(Details), new { id });
         }
     }
 }

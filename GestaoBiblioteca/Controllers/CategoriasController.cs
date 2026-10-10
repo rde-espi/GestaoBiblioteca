@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GestaoBiblioteca.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class CategoriasController : Controller
     {
         private readonly ICategoriaRepository _categoriaRepository;

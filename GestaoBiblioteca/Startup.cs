@@ -32,7 +32,7 @@ namespace GestaoBiblioteca
             services.AddIdentity<User, IdentityRole>(cfg =>
             {
                 cfg.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
-                cfg.SignIn.RequireConfirmedEmail = false;
+                cfg.SignIn.RequireConfirmedEmail = true;
                 cfg.User.RequireUniqueEmail = true;
                 cfg.Password.RequireDigit = false;
                 cfg.Password.RequireLowercase = false;
