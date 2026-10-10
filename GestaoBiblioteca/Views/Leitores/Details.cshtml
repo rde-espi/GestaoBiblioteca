@@ -1,10 +1,13 @@
-﻿@model GestaoBiblioteca.Data.Entities.Leitor
+@model GestaoBiblioteca.Data.Entities.Leitor
 
 @{
     ViewData["Title"] = "Detalhes do Leitor";
 }
 
-<h1>Detalhes do Leitor</h1>
+<h1>
+    <i class="fa-solid fa-circle-info mr-2" aria-hidden="true"></i>
+    Detalhes do Leitor
+</h1>
 
 <hr />
 
@@ -35,11 +38,13 @@
     <a asp-action="Edit"
        asp-route-id="@Model.Id"
        class="btn btn-primary">
+        <i class="fa-solid fa-pen mr-1" aria-hidden="true"></i>
         Editar
     </a>
 
     <a asp-action="Index"
        class="btn btn-secondary">
+        <i class="fa-solid fa-arrow-left mr-1" aria-hidden="true"></i>
         Voltar
     </a>
 </div>
