@@ -1,10 +1,10 @@
-﻿@model GestaoBiblioteca.Data.Entities.Autor
+@model GestaoBiblioteca.Data.Entities.Autor
 
 @{
     ViewData["Title"] = "Novo Autor";
 }
 
-<h1>Novo Autor</h1>
+<h1><i class="fa-solid fa-user-plus mr-2" aria-hidden="true"></i>Novo Autor</h1>
 
 <hr />
 
@@ -27,13 +27,13 @@
             </div>
 
             <div class="form-group">
-                <input type="submit"
-                       value="Criar"
-                       class="btn btn-primary" />
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-plus mr-1" aria-hidden="true"></i> Criar
+                </button>
 
                 <a asp-action="Index"
                    class="btn btn-secondary">
-                    Voltar
+                    <i class="fa-solid fa-arrow-left mr-1" aria-hidden="true"></i> Voltar
                 </a>
             </div>
 

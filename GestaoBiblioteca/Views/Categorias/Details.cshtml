@@ -1,10 +1,10 @@
-﻿@model GestaoBiblioteca.Data.Entities.Categoria
+@model GestaoBiblioteca.Data.Entities.Categoria
 
 @{
     ViewData["Title"] = "Detalhes da Categoria";
 }
 
-<h1>Detalhes da Categoria</h1>
+<h1><i class="fa-solid fa-circle-info mr-2" aria-hidden="true"></i>Detalhes da Categoria</h1>
 
 <hr />
 
@@ -32,11 +32,11 @@
     <a asp-action="Edit"
        asp-route-id="@Model.Id"
        class="btn btn-primary">
-        Editar
+        <i class="fa-solid fa-pen-to-square mr-1" aria-hidden="true"></i> Editar
     </a>
 
     <a asp-action="Index"
        class="btn btn-secondary">
-        Voltar
-    </a>
+            <i class="fa-solid fa-arrow-left mr-1" aria-hidden="true"></i> Voltar
+        </a>
 </div>

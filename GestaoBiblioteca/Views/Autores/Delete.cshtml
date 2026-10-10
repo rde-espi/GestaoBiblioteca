@@ -1,10 +1,10 @@
-﻿@model GestaoBiblioteca.Data.Entities.Autor
+@model GestaoBiblioteca.Data.Entities.Autor
 
 @{
     ViewData["Title"] = "Eliminar Autor";
 }
 
-<h1>Eliminar Autor</h1>
+<h1><i class="fa-solid fa-user-xmark mr-2" aria-hidden="true"></i>Eliminar Autor</h1>
 
 <h3>Tem a certeza de que pretende eliminar este autor?</h3>
 
@@ -32,13 +32,13 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
 
-        <input type="submit"
-               value="Eliminar"
-               class="btn btn-danger" />
+        <button type="submit" class="btn btn-danger">
+                    <i class="fa-solid fa-trash mr-1" aria-hidden="true"></i> Eliminar
+                </button>
 
         <a asp-action="Index"
            class="btn btn-secondary">
-            Voltar
+            <i class="fa-solid fa-arrow-left mr-1" aria-hidden="true"></i> Voltar
         </a>
     </form>
 </div>

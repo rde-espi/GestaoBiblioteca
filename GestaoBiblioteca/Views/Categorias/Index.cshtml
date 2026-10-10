@@ -1,16 +1,17 @@
-﻿@model IEnumerable<GestaoBiblioteca.Data.Entities.Categoria>
+@model IEnumerable<GestaoBiblioteca.Data.Entities.Categoria>
 
 @{
     ViewData["Title"] = "Categorias";
 }
 
-<h1>Categorias</h1>
+<h1><i class="fa-solid fa-tags mr-2" aria-hidden="true"></i>Categorias</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Nova Categoria</a>
+    <a asp-action="Create" class="btn btn-primary"><i class="fa-solid fa-plus mr-1" aria-hidden="true"></i> Nova Categoria</a>
 </p>
 
-<table class="table">
+<div class="table-responsive">
+<table class="table table-striped table-hover">
     <thead>
         <tr>
             <th>
@@ -33,12 +34,19 @@
                 <td>
                     @item.Descricao
                 </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                <td class="text-nowrap">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary mr-1">
+                        <i class="fa-solid fa-pen-to-square mr-1" aria-hidden="true"></i> Editar
+                    </a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info mr-1">
+                        <i class="fa-solid fa-circle-info mr-1" aria-hidden="true"></i> Detalhes
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">
+                        <i class="fa-solid fa-trash mr-1" aria-hidden="true"></i> Eliminar
+                    </a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+</div>
