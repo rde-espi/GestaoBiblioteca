@@ -10,8 +10,7 @@
 
 <div class="row">
     <div class="col-md-6">
-        <form asp-action="Edit">
-
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <input type="hidden" asp-for="Livro.Id" />
@@ -23,14 +22,20 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="Livro.ImagemCapaUrl" class="control-label">
-                    URL da capa
-                </label>
-                
-                <input asp-for="Livro.ImagemCapaUrl" class="form-control" placeholder="https://exemplo.com/capa.jpg" />
-                
-                <span asp-validation-for="Livro.ImagemCapaUrl" class="text-danger"></span>
-            </div>
+    <label for="ImagemCapaUpload" class="control-label">
+        Alterar imagem da capa
+    </label>
+
+    <input type="file"
+           id="ImagemCapaUpload"
+           name="ImagemCapaUpload"
+           class="form-control"
+           accept=".jpg,.jpeg,.png,.webp" />
+
+    <small class="form-text text-muted">
+        Deixa este campo vazio para manter a capa atual.
+    </small>
+</div>
             
             <div class="form-group">
                 <img src="@Model.Livro.ImagemCapa"

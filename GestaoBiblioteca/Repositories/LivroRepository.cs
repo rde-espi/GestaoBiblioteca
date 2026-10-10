@@ -72,6 +72,8 @@ namespace GestaoBiblioteca.Repositories
             livroExistente.AnoPublicacao = livro.AnoPublicacao;
             livroExistente.CategoriaId = livro.CategoriaId;
             livroExistente.Disponivel = livro.Disponivel;
+            livroExistente.ImagemCapaDados = livro.ImagemCapaDados;
+            livroExistente.ImagemCapaTipo = livro.ImagemCapaTipo;
 
             _context.LivrosAutores.RemoveRange(livroExistente.LivrosAutores);
 

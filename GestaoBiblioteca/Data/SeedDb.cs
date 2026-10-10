@@ -98,7 +98,8 @@ namespace GestaoBiblioteca.Data
                     AnoPublicacao = item.Ano,
                     CategoriaId = categoria.Id,
                     Disponivel = true,
-                    ImagemCapaUrl = null
+                    ImagemCapaDados = null,
+                    ImagemCapaTipo = null
                 };
 
                 _context.Livros.Add(livro);

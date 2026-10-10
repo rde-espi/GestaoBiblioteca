@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,12 +19,15 @@ namespace GestaoBiblioteca.Data.Entities
 
         public bool Disponivel {  get; set; }
 
-        [MaxLength(500)]
-        public string ImagemCapaUrl { get; set; }
+        public byte[] ImagemCapaDados { get; set; }
+
+        [MaxLength(100)]
+        public string ImagemCapaTipo { get; set; }
         [NotMapped]
-        public string ImagemCapa => string.IsNullOrWhiteSpace(ImagemCapaUrl)
-            ? "/images/noimage.jpg"
-            : ImagemCapaUrl;
+        public string ImagemCapa =>
+            ImagemCapaDados != null && ImagemCapaDados.Length > 0
+            ? $"data:{ImagemCapaTipo};base64,{Convert.ToBase64String(ImagemCapaDados)}"
+            : "/images/noimage.jpg";
 
         [Range(1,int.MaxValue,ErrorMessage = "Selecione uma categoria")]
         public int CategoriaId { get; set; }
