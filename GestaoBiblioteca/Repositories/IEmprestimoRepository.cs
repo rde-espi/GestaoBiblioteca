@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace GestaoBiblioteca.Repositories
 {
-    public interface IEmprestimoRepository:IGenericRepository<Emprestimo>
+    public interface IEmprestimoRepository : IGenericRepository<Emprestimo>
     {
         IQueryable<Emprestimo> GetAllWithDetails();
         Task<Emprestimo> GetByIdWithDetailsAsync(int id);

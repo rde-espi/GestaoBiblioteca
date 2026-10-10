@@ -2,6 +2,6 @@
 {
     public interface IMailHelper
     {
-        Response SendEmail(string to,string Subject,string body);
+        Response SendEmail(string to, string Subject, string body);
     }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GestaoBiblioteca.Data.Entities
 {
-    public class User: IdentityUser
+    public class User : IdentityUser
     {
         [Required]
         [MaxLength(50)]

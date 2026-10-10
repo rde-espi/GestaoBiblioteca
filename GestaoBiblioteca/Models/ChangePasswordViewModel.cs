@@ -5,7 +5,7 @@ namespace GestaoBiblioteca.Models
     public class ChangePasswordViewModel
     {
         [Required]
-        [Display(Name ="Current Password")]
+        [Display(Name = "Current Password")]
         public string OldPassword { get; set; }
 
         [Required]

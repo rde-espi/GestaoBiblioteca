@@ -132,7 +132,7 @@ namespace GestaoBiblioteca.Controllers
                 {
                     ViewBag.ErrorTitle = $"{leitor.Nome} possui empréstimos associados.";
 
-                    ViewBag.ErrorMessage =$"O leitor <strong>{leitor.Nome}</strong> não pode ser eliminado porque possui histórico de empréstimos.";
+                    ViewBag.ErrorMessage = $"O leitor <strong>{leitor.Nome}</strong> não pode ser eliminado porque possui histórico de empréstimos.";
                 }
 
                 return View("Error");

@@ -66,7 +66,7 @@ namespace GestaoBiblioteca.Controllers
 
             var categoria = await _categoriaRepository.GetByIdAsync(id.Value);
 
-            if(categoria == null)
+            if (categoria == null)
             {
                 return NotFound();
             }
@@ -76,9 +76,9 @@ namespace GestaoBiblioteca.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult>Edit(int id, Categoria categoria)
+        public async Task<IActionResult> Edit(int id, Categoria categoria)
         {
-            if(id != categoria.Id)
+            if (id != categoria.Id)
             {
                 return NotFound();
             }
@@ -92,16 +92,16 @@ namespace GestaoBiblioteca.Controllers
             return View(categoria);
         }
 
-        public async Task<IActionResult>Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var categoria = await _categoriaRepository.GetByIdAsync(id.Value);
 
-            if(categoria == null)
+            if (categoria == null)
             {
                 return NotFound();
             }
@@ -126,7 +126,7 @@ namespace GestaoBiblioteca.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch(DbUpdateException ex)
+            catch (DbUpdateException ex)
             {
                 if (ex.InnerException != null && ex.InnerException.Message.Contains("DELETE"))
                 {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GestaoBiblioteca.Repositories
 {
-    public interface ILivroRepository:IGenericRepository<Livro>
+    public interface ILivroRepository : IGenericRepository<Livro>
     {
         IQueryable<Livro> GetAllWithDetails();
         Task<Livro> GetByIdWithDetailsAsync(int id);

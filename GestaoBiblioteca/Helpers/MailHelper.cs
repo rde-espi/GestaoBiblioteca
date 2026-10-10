@@ -30,7 +30,7 @@ namespace GestaoBiblioteca.Helpers
             {
                 HtmlBody = body,
             };
-            message.Body=bodyBuilder.ToMessageBody();
+            message.Body = bodyBuilder.ToMessageBody();
 
             try
             {
@@ -47,14 +47,14 @@ namespace GestaoBiblioteca.Helpers
                 return new Response
                 {
                     IsSucess = false,
-                    Message=ex.ToString()
+                    Message = ex.ToString()
                 };
             }
             return new Response
             {
                 IsSucess = true
             };
-           
+
         }
     }
 }

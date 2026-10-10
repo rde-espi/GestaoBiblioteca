@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GestaoBiblioteca.Data.Entities
 {
-    public class Livro:IEntity
+    public class Livro : IEntity
     {
         public int Id { get; set; }
 
@@ -13,11 +13,11 @@ namespace GestaoBiblioteca.Data.Entities
         [MaxLength(150)]
         public string Titulo { get; set; }
 
-        [Range(1, int.MaxValue,ErrorMessage ="Introduza um ano de publicação valido")]
+        [Range(1, int.MaxValue, ErrorMessage = "Introduza um ano de publicação valido")]
 
         public int AnoPublicacao { get; set; }
 
-        public bool Disponivel {  get; set; }
+        public bool Disponivel { get; set; }
 
         public byte[] ImagemCapaDados { get; set; }
 
@@ -29,7 +29,7 @@ namespace GestaoBiblioteca.Data.Entities
             ? $"data:{ImagemCapaTipo};base64,{Convert.ToBase64String(ImagemCapaDados)}"
             : "/images/noimage.jpg";
 
-        [Range(1,int.MaxValue,ErrorMessage = "Selecione uma categoria")]
+        [Range(1, int.MaxValue, ErrorMessage = "Selecione uma categoria")]
         public int CategoriaId { get; set; }
 
         public Categoria Categoria { get; set; }

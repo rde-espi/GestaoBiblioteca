@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace GestaoBiblioteca.Repositories
 {
-    public class LeitorRepository:GenericRepository<Leitor>, ILeitorRepository
+    public class LeitorRepository : GenericRepository<Leitor>, ILeitorRepository
     {
         private readonly DataContext _context;
 
-        public LeitorRepository(DataContext context):base(context)
+        public LeitorRepository(DataContext context) : base(context)
         {
             _context = context;
         }

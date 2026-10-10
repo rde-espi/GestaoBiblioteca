@@ -53,7 +53,7 @@ namespace GestaoBiblioteca.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(LivroViewModel model, IFormFile ImagemCapaUpload)
         {
-            if(model.Livro.AnoPublicacao > DateTime.Now.Year)
+            if (model.Livro.AnoPublicacao > DateTime.Now.Year)
             {
                 ModelState.AddModelError("Livro.AnoPublicacao", "O ano de publicação não pode ser superior ao ano atual");
             }
@@ -111,7 +111,7 @@ namespace GestaoBiblioteca.Controllers
 
             var livro = await _livroRepository.GetByIdWithDetailsAsync(id.Value);
 
-            if(livro == null)
+            if (livro == null)
             {
                 return NotFound();
             }
@@ -122,14 +122,14 @@ namespace GestaoBiblioteca.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var livro = await _livroRepository.GetByIdWithDetailsAsync(id.Value);
 
-            if(livro == null)
+            if (livro == null)
             {
                 return NotFound();
             }
@@ -150,9 +150,9 @@ namespace GestaoBiblioteca.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(LivroViewModel model,IFormFile ImagemCapaUpload)
+        public async Task<IActionResult> Edit(LivroViewModel model, IFormFile ImagemCapaUpload)
         {
-            if(model.Livro.AnoPublicacao > DateTime.Now.Year)
+            if (model.Livro.AnoPublicacao > DateTime.Now.Year)
             {
                 ModelState.AddModelError("Livro.AnoPublicacao", "O ano de publicação não pode ser superior ao ano atual");
             }
@@ -197,14 +197,14 @@ namespace GestaoBiblioteca.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var livro = await _livroRepository.GetByIdWithDetailsAsync(id.Value);
 
-            if(livro == null)
+            if (livro == null)
             {
                 return NotFound();
             }
@@ -219,7 +219,7 @@ namespace GestaoBiblioteca.Controllers
         {
             var livro = await _livroRepository.GetByIdWithDetailsAsync(id);
 
-            if(livro == null)
+            if (livro == null)
             {
                 return NotFound();
             }

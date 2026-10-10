@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace GestaoBiblioteca.Repositories
 {
-    public class EmprestimoRepository:GenericRepository<Emprestimo>,IEmprestimoRepository
+    public class EmprestimoRepository : GenericRepository<Emprestimo>, IEmprestimoRepository
     {
         private readonly DataContext _context;
 
-        public EmprestimoRepository(DataContext context): base(context)
+        public EmprestimoRepository(DataContext context) : base(context)
         {
             _context = context;
         }
@@ -20,7 +20,7 @@ namespace GestaoBiblioteca.Repositories
         {
             var livro = await _context.Livros.FirstOrDefaultAsync(l => l.Id == emprestimo.LivroId);
 
-            if(livro == null || !livro.Disponivel)
+            if (livro == null || !livro.Disponivel)
             {
                 return false;
             }
@@ -38,7 +38,7 @@ namespace GestaoBiblioteca.Repositories
                 .Include(e => e.Livro)
                 .FirstOrDefaultAsync(e => e.Id == id);
 
-            if(emprestimo == null || emprestimo.DataDevolucao.HasValue)
+            if (emprestimo == null || emprestimo.DataDevolucao.HasValue)
             {
                 return false;
             }

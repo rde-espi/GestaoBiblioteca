@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace GestaoBiblioteca.Repositories
 {
-    public class LivroRepository:GenericRepository<Livro>,ILivroRepository
+    public class LivroRepository : GenericRepository<Livro>, ILivroRepository
     {
         private readonly DataContext _context;
 
-        public LivroRepository(DataContext context):base(context) 
+        public LivroRepository(DataContext context) : base(context)
         {
             _context = context;
         }
@@ -21,9 +21,9 @@ namespace GestaoBiblioteca.Repositories
             await _context.Livros.AddAsync(livro);
             await _context.SaveChangesAsync();
 
-            if(autoresIds != null)
+            if (autoresIds != null)
             {
-                foreach(var autorId in autoresIds)
+                foreach (var autorId in autoresIds)
                 {
                     var livroAutor = new LivroAutor
                     {
@@ -63,7 +63,7 @@ namespace GestaoBiblioteca.Repositories
                 .Include(l => l.LivrosAutores)
                 .FirstOrDefaultAsync(l => l.Id == livro.Id);
 
-            if(livroExistente == null)
+            if (livroExistente == null)
             {
                 return;
             }
@@ -77,9 +77,9 @@ namespace GestaoBiblioteca.Repositories
 
             _context.LivrosAutores.RemoveRange(livroExistente.LivrosAutores);
 
-            if(autoresIds != null)
+            if (autoresIds != null)
             {
-                foreach(var autorId in autoresIds)
+                foreach (var autorId in autoresIds)
                 {
                     livroExistente.LivrosAutores.Add(new LivroAutor
                     {

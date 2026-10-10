@@ -48,7 +48,7 @@ namespace GestaoBiblioteca
 
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<ICategoriaRepository,CategoriaRepository>();
+            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
             services.AddScoped<IAutorRepository, AutorRepository>();
             services.AddScoped<ILivroRepository, LivroRepository>();
             services.AddScoped<ILeitorRepository, LeitorRepository>();

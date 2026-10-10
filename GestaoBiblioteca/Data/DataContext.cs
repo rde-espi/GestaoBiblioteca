@@ -8,14 +8,14 @@ namespace GestaoBiblioteca.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-            
+
         }
 
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Autor> Autores { get; set; }
         public DbSet<Livro> Livros { get; set; }
         public DbSet<LivroAutor> LivrosAutores { get; set; }
-        public DbSet<Leitor> Leitores {  get; set; }
+        public DbSet<Leitor> Leitores { get; set; }
         public DbSet<Emprestimo> Emprestimos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

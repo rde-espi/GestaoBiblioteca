@@ -53,7 +53,7 @@ namespace GestaoBiblioteca.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult>Create(EmprestimoViewModel model)
+        public async Task<IActionResult> Create(EmprestimoViewModel model)
         {
             if (!User.IsInRole("Admin"))
             {
@@ -74,7 +74,7 @@ namespace GestaoBiblioteca.Controllers
             {
                 ModelState.AddModelError("Emprestimo.DataPrevistaDevolucao", "A data prevista de devolução deve ser posterior à data do empréstimo");
             }
-            
+
             if (ModelState.IsValid)
             {
                 var criado = await _emprestimoRepository.CreateEmprestimoAsync(model.Emprestimo);
@@ -95,7 +95,7 @@ namespace GestaoBiblioteca.Controllers
 
         public async Task<IActionResult> Details(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -116,7 +116,7 @@ namespace GestaoBiblioteca.Controllers
                 }
             }
 
-            
+
 
             return View(emprestimo);
         }

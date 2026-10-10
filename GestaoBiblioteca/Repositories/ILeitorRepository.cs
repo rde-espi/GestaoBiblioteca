@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace GestaoBiblioteca.Repositories
 {
-    public interface ILeitorRepository:IGenericRepository<Leitor>
+    public interface ILeitorRepository : IGenericRepository<Leitor>
     {
         Task<Leitor> GetByUserIdAsync(string userId);
     }

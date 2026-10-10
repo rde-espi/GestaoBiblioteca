@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GestaoBiblioteca.Data.Entities
 {
-    public class Leitor:IEntity
+    public class Leitor : IEntity
     {
         public int Id { get; set; }
 
@@ -13,7 +13,7 @@ namespace GestaoBiblioteca.Data.Entities
 
         [Required]
         [EmailAddress]
-        [MaxLength (100)]
+        [MaxLength(100)]
         public string Email { get; set; }
 
         [MaxLength(20)]

@@ -2,7 +2,7 @@
 
 namespace GestaoBiblioteca.Repositories
 {
-    public interface IAutorRepository:IGenericRepository<Autor>
+    public interface IAutorRepository : IGenericRepository<Autor>
     {
     }
 }

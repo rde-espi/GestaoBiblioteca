@@ -22,7 +22,7 @@ namespace GestaoBiblioteca.Controllers
         private readonly IMailHelper _mailHelper;
         private readonly ILeitorRepository _leitorRepository;
 
-        public AccountController(IUserHelper userHelper, IConfiguration configuration, IMailHelper mailHelper,ILeitorRepository leitorRepository)
+        public AccountController(IUserHelper userHelper, IConfiguration configuration, IMailHelper mailHelper, ILeitorRepository leitorRepository)
         {
             _configuration = configuration;
             _mailHelper = mailHelper;
@@ -47,7 +47,7 @@ namespace GestaoBiblioteca.Controllers
                 var result = await _userHelper.LoginAsync(model);
                 if (result.IsNotAllowed)
                 {
-                    ModelState.AddModelError( string.Empty,"A sua conta ainda não foi confirmada. Consulte o seu email e clique no link de confirmação.");
+                    ModelState.AddModelError(string.Empty, "A sua conta ainda não foi confirmada. Consulte o seu email e clique no link de confirmação.");
 
                     return View(model);
                 }
@@ -60,7 +60,7 @@ namespace GestaoBiblioteca.Controllers
                     return this.RedirectToAction("Index", "Home");
                 }
             }
-            this.ModelState.AddModelError( string.Empty, "Não foi possível iniciar sessão. Verifique o email e a palavra-passe.");
+            this.ModelState.AddModelError(string.Empty, "Não foi possível iniciar sessão. Verifique o email e a palavra-passe.");
             return View(model);
         }
 
@@ -95,7 +95,7 @@ namespace GestaoBiblioteca.Controllers
                         PhoneNumber = model.PhoneNumber
                     };
 
-                    var result = await _userHelper.AddUserAsync( user, model.Password);
+                    var result = await _userHelper.AddUserAsync(user, model.Password);
 
                     if (result.Succeeded)
                     {
@@ -147,12 +147,12 @@ namespace GestaoBiblioteca.Controllers
 
                     foreach (var error in result.Errors)
                     {
-                        ModelState.AddModelError( string.Empty, error.Description);
+                        ModelState.AddModelError(string.Empty, error.Description);
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError( string.Empty, "Já existe um utilizador registado com este email.");
+                    ModelState.AddModelError(string.Empty, "Já existe um utilizador registado com este email.");
                 }
             }
 
@@ -185,13 +185,13 @@ namespace GestaoBiblioteca.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult>ChangeUser(ChangeUserViewModel model)
+        public async Task<IActionResult> ChangeUser(ChangeUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = await _userHelper.GetUserByEmailAsync (User.Identity.Name);
+                var user = await _userHelper.GetUserByEmailAsync(User.Identity.Name);
 
-                if(user == null)
+                if (user == null)
                 {
                     return NotFound();
                 }
@@ -203,14 +203,14 @@ namespace GestaoBiblioteca.Controllers
                 user.Email = model.Email;
                 user.UserName = model.Email;
 
-                var result = await _userHelper.UpdateUserAsync (user);
+                var result = await _userHelper.UpdateUserAsync(user);
 
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");
                 }
 
-                foreach(var error in result.Errors)
+                foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
@@ -332,7 +332,7 @@ namespace GestaoBiblioteca.Controllers
                 var user = await _userHelper.GetUserByEmailAsync(model.Email);
                 if (user == null)
                 {
-                    ModelState.AddModelError( string.Empty, "Não existe nenhum utilizador registado com este endereço de email.");
+                    ModelState.AddModelError(string.Empty, "Não existe nenhum utilizador registado com este endereço de email.");
                     return View(model);
                 }
 

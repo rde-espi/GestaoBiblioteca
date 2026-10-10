@@ -34,7 +34,7 @@ namespace GestaoBiblioteca.Data
                     FirstName = "Reinaldo",
                     LastName = "Souza",
                     Email = "reinaldo_7531@hotmail.com",
-                    EmailConfirmed= true,
+                    EmailConfirmed = true,
                     UserName = "reinaldo_7531@hotmail.com",
                     PhoneNumber = "936232511"
                 };
