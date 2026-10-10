@@ -47,6 +47,13 @@
         @(Model.Disponivel ? "Sim" : "Não")
     </dd>
 </dl>
+<div class="mb-3">
+    <img src="@Model.ImagemCapa"
+         alt="Capa de @Model.Titulo"
+         class="img-thumbnail"
+         style="max-width: 180px; max-height: 260px; object-fit: contain;"
+         onerror="this.onerror=null;this.src='/images/noimage.png';" />
+</div>
 
 <div>
     <a asp-action="Edit"
