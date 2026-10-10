@@ -1,75 +1,79 @@
-﻿@model IEnumerable<GestaoBiblioteca.Data.Entities.Emprestimo>
+@model IEnumerable<GestaoBiblioteca.Data.Entities.Emprestimo>
 
 @{
     ViewData["Title"] = "Empréstimos";
 }
 
-<h1>Empréstimos</h1>
+<h1>
+    <i class="fa-solid fa-book-open-reader mr-2" aria-hidden="true"></i>
+    Empréstimos
+</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-primary">
+        <i class="fa-solid fa-plus mr-1" aria-hidden="true"></i>
         Novo Empréstimo
     </a>
 </p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Leitor</th>
-            <th>Livro</th>
-            <th>Data do Empréstimo</th>
-            <th>Devolução Prevista</th>
-            <th>Data de Devolução</th>
-            <th>Estado</th>
-            <th></th>
-        </tr>
-    </thead>
-
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="thead-light">
             <tr>
-                <td>@item.Leitor?.Nome</td>
-
-                <td>@item.Livro?.Titulo</td>
-
-                <td>
-                    @item.DataEmprestimo.ToString("dd/MM/yyyy")
-                </td>
-
-                <td>
-                    @item.DataPrevistaDevolucao.ToString("dd/MM/yyyy")
-                </td>
-
-                <td>
-                    @if (item.DataDevolucao.HasValue)
-                    {
-                        @item.DataDevolucao.Value.ToString("dd/MM/yyyy")
-                    }
-                    else
-                    {
-                        <span>-</span>
-                    }
-                </td>
-
-                <td>
-                    @if (item.DataDevolucao.HasValue)
-                    {
-                        <span>Devolvido</span>
-                    }
-                    else
-                    {
-                        <span>Em curso</span>
-                    }
-                </td>
-
-                <td>
-                    <a asp-action="Details"
-                       asp-route-id="@item.Id">
-                        Detalhes
-                    </a>
-                </td>
+                <th>Leitor</th>
+                <th>Livro</th>
+                <th>Data do Empréstimo</th>
+                <th>Devolução Prevista</th>
+                <th>Data de Devolução</th>
+                <th>Estado</th>
+                <th>Ações</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Leitor?.Nome</td>
+                    <td>@item.Livro?.Titulo</td>
+                    <td>@item.DataEmprestimo.ToString("dd/MM/yyyy")</td>
+                    <td>@item.DataPrevistaDevolucao.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        @if (item.DataDevolucao.HasValue)
+                        {
+                            @item.DataDevolucao.Value.ToString("dd/MM/yyyy")
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td>
+                        @if (item.DataDevolucao.HasValue)
+                        {
+                            <span class="badge badge-success">
+                                <i class="fa-solid fa-check mr-1" aria-hidden="true"></i>
+                                Devolvido
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-warning">
+                                <i class="fa-solid fa-clock mr-1" aria-hidden="true"></i>
+                                Em curso
+                            </span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Details"
+                           asp-route-id="@item.Id"
+                           class="btn btn-sm btn-outline-primary">
+                            <i class="fa-solid fa-eye mr-1" aria-hidden="true"></i>
+                            Detalhes
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

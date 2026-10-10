@@ -1,45 +1,30 @@
-﻿@model GestaoBiblioteca.Data.Entities.Emprestimo
+@model GestaoBiblioteca.Data.Entities.Emprestimo
 
 @{
     ViewData["Title"] = "Detalhes do Empréstimo";
 }
 
-<h1>Detalhes do Empréstimo</h1>
+<h1>
+    <i class="fa-solid fa-circle-info mr-2" aria-hidden="true"></i>
+    Detalhes do Empréstimo
+</h1>
 
 <hr />
 
 <dl class="row">
-    <dt class="col-sm-3">
-        Leitor
-    </dt>
-    <dd class="col-sm-9">
-        @Model.Leitor?.Nome
-    </dd>
+    <dt class="col-sm-3">Leitor</dt>
+    <dd class="col-sm-9">@Model.Leitor?.Nome</dd>
 
-    <dt class="col-sm-3">
-        Livro
-    </dt>
-    <dd class="col-sm-9">
-        @Model.Livro?.Titulo
-    </dd>
+    <dt class="col-sm-3">Livro</dt>
+    <dd class="col-sm-9">@Model.Livro?.Titulo</dd>
 
-    <dt class="col-sm-3">
-        Data do Empréstimo
-    </dt>
-    <dd class="col-sm-9">
-        @Model.DataEmprestimo.ToString("dd/MM/yyyy")
-    </dd>
+    <dt class="col-sm-3">Data do Empréstimo</dt>
+    <dd class="col-sm-9">@Model.DataEmprestimo.ToString("dd/MM/yyyy")</dd>
 
-    <dt class="col-sm-3">
-        Devolução Prevista
-    </dt>
-    <dd class="col-sm-9">
-        @Model.DataPrevistaDevolucao.ToString("dd/MM/yyyy")
-    </dd>
+    <dt class="col-sm-3">Devolução Prevista</dt>
+    <dd class="col-sm-9">@Model.DataPrevistaDevolucao.ToString("dd/MM/yyyy")</dd>
 
-    <dt class="col-sm-3">
-        Data de Devolução
-    </dt>
+    <dt class="col-sm-3">Data de Devolução</dt>
     <dd class="col-sm-9">
         @if (Model.DataDevolucao.HasValue)
         {
@@ -51,17 +36,21 @@
         }
     </dd>
 
-    <dt class="col-sm-3">
-        Estado
-    </dt>
+    <dt class="col-sm-3">Estado</dt>
     <dd class="col-sm-9">
         @if (Model.DataDevolucao.HasValue)
         {
-            <span>Devolvido</span>
+            <span class="badge badge-success">
+                <i class="fa-solid fa-check mr-1" aria-hidden="true"></i>
+                Devolvido
+            </span>
         }
         else
         {
-            <span>Em curso</span>
+            <span class="badge badge-warning">
+                <i class="fa-solid fa-clock mr-1" aria-hidden="true"></i>
+                Em curso
+            </span>
         }
     </dd>
 </dl>
@@ -72,17 +61,16 @@
         <form asp-action="Devolver"
               asp-route-id="@Model.Id"
               method="post"
-              style="display:inline;">
-
-            <button type="submit"
-                    class="btn btn-success">
+              class="d-inline">
+            <button type="submit" class="btn btn-success">
+                <i class="fa-solid fa-rotate-left mr-1" aria-hidden="true"></i>
                 Devolver Livro
             </button>
         </form>
     }
 
-    <a asp-action="Index"
-       class="btn btn-secondary">
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="fa-solid fa-arrow-left mr-1" aria-hidden="true"></i>
         Voltar
     </a>
 </div>
