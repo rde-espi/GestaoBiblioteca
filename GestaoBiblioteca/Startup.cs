@@ -56,6 +56,8 @@ namespace GestaoBiblioteca
             services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IMailHelper, MailHelper>();
 
+            services.AddScoped<SeedDb>();
+
             services.AddControllersWithViews();
         }
 

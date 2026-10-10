@@ -22,7 +22,7 @@ namespace GestaoBiblioteca.Data.Entities
         public string ImagemCapaUrl { get; set; }
         [NotMapped]
         public string ImagemCapa => string.IsNullOrWhiteSpace(ImagemCapaUrl)
-            ? "/images/noimage.png"
+            ? "/images/noimage.jpg"
             : ImagemCapaUrl;
 
         [Range(1,int.MaxValue,ErrorMessage = "Selecione uma categoria")]

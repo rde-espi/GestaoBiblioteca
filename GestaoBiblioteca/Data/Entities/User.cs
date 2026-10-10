@@ -15,5 +15,8 @@ namespace GestaoBiblioteca.Data.Entities
 
         [MaxLength(150)]
         public string Address { get; set; }
+
+        [Display(Name = "Full Name")]
+        public string FullName => $"{FirstName} {LastName}";
     }
 }
