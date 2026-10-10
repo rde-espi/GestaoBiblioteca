@@ -1,10 +1,10 @@
-﻿@model GestaoBiblioteca.Models.LoginViewModel
+@model GestaoBiblioteca.Models.LoginViewModel
 
 @{
     ViewData["Title"] = "Iniciar sessão";
 }
 
-<h2>Iniciar sessão</h2>
+<h2><i class="fa-solid fa-right-to-bracket mr-2" aria-hidden="true"></i>Iniciar sessão</h2>
 
 <hr />
 
@@ -45,12 +45,12 @@
 
             <button type="submit"
                     class="btn btn-primary">
-                Entrar
+                <i class="fa-solid fa-right-to-bracket mr-1" aria-hidden="true"></i> Entrar
             </button>
             <div class="form-group mt-3">
                 <a asp-controller="Account"
                    asp-action="RecoverPassword">
-                    Esqueceu-se da palavra-passe?
+                    <i class="fa-solid fa-circle-question mr-1" aria-hidden="true"></i> Esqueceu-se da palavra-passe?
                 </a>
             </div>
         </form>

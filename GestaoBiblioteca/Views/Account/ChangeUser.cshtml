@@ -1,10 +1,10 @@
-﻿@model GestaoBiblioteca.Models.ChangeUserViewModel
+@model GestaoBiblioteca.Models.ChangeUserViewModel
 
 @{
     ViewData["Title"] = "Editar Perfil";
 }
 
-<h2>Editar Perfil</h2>
+<h2><i class="fa-solid fa-user-pen mr-2" aria-hidden="true"></i>Editar Perfil</h2>
 
 <hr />
 
@@ -46,19 +46,19 @@
 
                         <div class="form-group">
                 <button type="submit" class="btn btn-primary">
-                    Guardar alterações
+                    <i class="fa-solid fa-user-pen mr-1" aria-hidden="true"></i> Guardar alterações
                 </button>
 
                 <a asp-controller="Account"
                    asp-action="ChangePassword"
                    class="btn btn-outline-primary">
-                    Alterar palavra-passe
+                    <i class="fa-solid fa-key mr-1" aria-hidden="true"></i> Alterar palavra-passe
                 </a>
 
                 <a asp-controller="Home"
                    asp-action="Index"
                    class="btn btn-secondary">
-                    Cancelar
+                    <i class="fa-solid fa-xmark mr-1" aria-hidden="true"></i> Cancelar
                 </a>
             </div>
 

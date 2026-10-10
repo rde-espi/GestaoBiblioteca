@@ -1,171 +1,137 @@
 ﻿@inject Microsoft.AspNetCore.Identity.UserManager<GestaoBiblioteca.Data.Entities.User> UserManager
+@{
+    var autenticado = User.Identity != null && User.Identity.IsAuthenticated;
+    var administrador = User.IsInRole("Admin");
+    var utilizador = autenticado ? await UserManager.GetUserAsync(User) : null;
+    var nomeUtilizador = utilizador?.FullName;
+    if (string.IsNullOrWhiteSpace(nomeUtilizador))
+    {
+        nomeUtilizador = User.Identity?.Name ?? "Utilizador";
+    }
+    var controladorAtual = ViewContext.RouteData.Values["controller"]?.ToString();
+}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-PT">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>@ViewData["Title"] - GestaoBiblioteca</title>
+    <title>@ViewData["Title"] - Gestão Biblioteca</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="~/css/gestao-biblioteca.css" asp-append-version="true" />
 </head>
-
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-
-                <a class="navbar-brand"
-                   asp-area=""
-                   asp-controller="Home"
-                   asp-action="Index">
-                    GestaoBiblioteca
+    <header class="gb-header">
+        <nav class="navbar navbar-expand-lg gb-navbar" aria-label="Navegação principal">
+            <div class="container-fluid px-3 px-lg-4">
+                <a class="navbar-brand gb-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
+                    <span class="gb-brand-icon"><i class="fa-solid fa-book-open" aria-hidden="true"></i></span>
+                    Gestão Biblioteca
                 </a>
 
-                <button class="navbar-toggler"
-                        type="button"
-                        data-toggle="collapse"
-                        data-target=".navbar-collapse"
-                        aria-controls="navbarSupportedContent"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#gbNavbar"
+                        aria-controls="gbNavbar" aria-expanded="false" aria-label="Abrir menu de navegação">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-
-                    <ul class="navbar-nav flex-grow-1">
-
+                <div class="collapse navbar-collapse" id="gbNavbar">
+                    <ul class="navbar-nav mr-auto ml-lg-3">
                         <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-controller="Home"
-                               asp-action="Index">
-                                Home
+                            <a class="nav-link @(controladorAtual == "Home" ? "gb-active" : "")" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="fa-solid fa-house" aria-hidden="true"></i> Início
                             </a>
                         </li>
-
-                        @if (User.IsInRole("Admin"))
+                        <li class="nav-item">
+                            <a class="nav-link @(controladorAtual == "Livros" ? "gb-active" : "")" asp-area="" asp-controller="Livros" asp-action="Index">
+                                <i class="fa-solid fa-book" aria-hidden="true"></i> Livros
+                            </a>
+                        </li>
+                        @if (administrador)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark"
-                                asp-controller="Categorias"
-                                asp-action="Index">Categorias</a>
+                                <a class="nav-link @(controladorAtual == "Categorias" ? "gb-active" : "")" asp-controller="Categorias" asp-action="Index">
+                                    <i class="fa-solid fa-tags" aria-hidden="true"></i> Categorias
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @(controladorAtual == "Autores" ? "gb-active" : "")" asp-controller="Autores" asp-action="Index">
+                                    <i class="fa-solid fa-feather-pointed" aria-hidden="true"></i> Autores
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @(controladorAtual == "Leitores" ? "gb-active" : "")" asp-controller="Leitores" asp-action="Index">
+                                    <i class="fa-solid fa-users" aria-hidden="true"></i> Leitores
+                                </a>
                             </li>
                         }
-
-                        @if (User.IsInRole("Admin"))
+                        @if (autenticado)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark"
-                                asp-controller="Autores"
-                                asp-action="Index">Autores</a>
+                                <a class="nav-link @(controladorAtual == "Emprestimos" ? "gb-active" : "")" asp-controller="Emprestimos" asp-action="Index">
+                                    <i class="fa-solid fa-book-open-reader" aria-hidden="true"></i> Empréstimos
+                                </a>
                             </li>
                         }
-
                         <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-controller="Livros"
-                               asp-action="Index">
-                                Livros
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
+                                <i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Privacidade
                             </a>
                         </li>
-
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark"
-                                asp-controller="Leitores"
-                                asp-action="Index">Leitores</a>
-                            </li>
-}
-
-                        <li class="nav-item">
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <a class="nav-link text-dark"
-                                asp-controller="Emprestimos"
-                                asp-action="Index">Empréstimos</a>
-                            }
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-area=""
-                               asp-controller="Home"
-                               asp-action="Privacy">
-                                Privacy
-                            </a>
-                        </li>
-
                     </ul>
 
-                    <ul class="navbar-nav">
-
-                        @if (User.Identity.IsAuthenticated)
+                    <ul class="navbar-nav gb-account align-items-lg-center">
+                        @if (autenticado)
                         {
-                            <li class="nav-item">
-                                <span class="nav-link text-dark">
-                                    Olá, @((await UserManager.GetUserAsync(User))?.FullName)
-                                </span>
-                            </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" 
-                                       asp-controller="Account" 
-                                       asp-action="ChangeUser">
-                                        Editar Perfil
-                                    </a>
-                                </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark"
-                                   asp-controller="Account"
-                                   asp-action="Logout">
-                                    Terminar sessão
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle gb-user-toggle" href="#" id="gbUserMenu" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="gb-avatar"><i class="fa-solid fa-user" aria-hidden="true"></i></span>
+                                    <span class="text-truncate" style="max-width: 150px;">@nomeUtilizador</span>
                                 </a>
+                                <div class="dropdown-menu dropdown-menu-right gb-dropdown" aria-labelledby="gbUserMenu">
+                                    <a class="dropdown-item" asp-controller="Account" asp-action="ChangeUser">
+                                        <i class="fa-solid fa-user-pen" aria-hidden="true"></i> Editar perfil
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-controller="Account" asp-action="Logout">
+                                        <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> Terminar sessão
+                                    </a>
+                                </div>
                             </li>
                         }
                         else
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark"
-                                   asp-controller="Account"
-                                   asp-action="Register">
-                                    Criar conta
+                            <li class="nav-item mr-lg-2">
+                                <a class="nav-link gb-register" asp-controller="Account" asp-action="Register">
+                                    <i class="fa-solid fa-user-plus" aria-hidden="true"></i> Criar conta
                                 </a>
                             </li>
-
                             <li class="nav-item">
-                                <a class="nav-link text-dark"
-                                   asp-controller="Account"
-                                   asp-action="Login">
-                                    Iniciar sessão
+                                <a class="nav-link gb-login" asp-controller="Account" asp-action="Login">
+                                    <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i> Iniciar sessão
                                 </a>
                             </li>
                         }
-
                     </ul>
-
                 </div>
             </div>
         </nav>
     </header>
 
-    <div class="container">
+    <div class="container gb-main">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - GestaoBiblioteca -
-            <a asp-area=""
-               asp-controller="Home"
-               asp-action="Privacy">
-                Privacy
+    <footer class="gb-footer">
+        <div class="container d-flex flex-column flex-sm-row justify-content-between align-items-sm-center">
+            <span><i class="fa-solid fa-book-open mr-2" aria-hidden="true"></i>&copy; 2026 - Gestão Biblioteca</span>
+            <a asp-area="" asp-controller="Home" asp-action="Privacy">
+                <i class="fa-solid fa-shield-halved mr-1" aria-hidden="true"></i> Política de privacidade
             </a>
         </div>
     </footer>
@@ -173,8 +139,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
     @await RenderSectionAsync("Scripts", required: false)
-
 </body>
 </html>

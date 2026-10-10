@@ -1,0 +1,28 @@
+/* Gestão Biblioteca — formulários de conta */
+.gb-auth-page{display:flex;justify-content:center;align-items:flex-start;padding:1.5rem 0 3rem}
+.gb-auth-card{width:100%;max-width:490px;background:#fff;border:1px solid #e6eaf1;border-radius:18px;box-shadow:0 15px 45px rgba(16,27,43,.08);overflow:hidden}
+.gb-auth-card-wide{max-width:690px}
+.gb-auth-header{text-align:center;padding:2.2rem 2rem 1.5rem;background:linear-gradient(145deg,#17263d,#101b2b);color:#fff}
+.gb-auth-icon{display:inline-flex;width:58px;height:58px;align-items:center;justify-content:center;background:#d9ab60;color:#101b2b;border-radius:16px;font-size:1.45rem;margin-bottom:1rem}
+.gb-auth-header h1{font-size:1.6rem;font-weight:700;margin-bottom:.45rem}
+.gb-auth-header p{margin:0;color:#d5dce6;font-size:.95rem}
+.gb-auth-content{padding:2rem}
+.gb-form-label{font-weight:600;font-size:.92rem;color:#24354b}
+.gb-input-wrap{position:relative}
+.gb-input-wrap>i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#718098;pointer-events:none;z-index:1}
+.gb-form-control{height:45px;padding-left:42px;border:1px solid #dce2eb;border-radius:9px}
+.gb-form-control:focus{border-color:#c79b52;box-shadow:0 0 0 .2rem rgba(217,171,96,.18)}
+.gb-auth-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.65rem;margin-top:1.35rem}
+.gb-auth-actions .btn{margin-right:.25rem;margin-bottom:.25rem}
+.gb-btn-primary{background:#17263d;border:1px solid #17263d;color:#fff;border-radius:9px;padding:.65rem 1rem;font-weight:600}
+.gb-btn-primary:hover{background:#263c5b;color:#fff}
+.gb-btn-secondary{background:#f3f5f9;border:1px solid #dce2eb;color:#24354b;border-radius:9px;padding:.65rem 1rem}
+.gb-btn-secondary:hover{background:#e9edf4;color:#17263d}
+.gb-auth-text-link,.gb-auth-inline-link{color:#455f7c;text-decoration:none;font-weight:600}
+.gb-auth-text-link:hover,.gb-auth-inline-link:hover{color:#17263d;text-decoration:underline}
+.gb-auth-bottom{margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid #e6eaf1;text-align:center;font-size:.92rem}
+.gb-remember{margin-left:.1rem}
+.gb-validation-summary:empty,.gb-validation-summary.valid{display:none}
+.gb-validation-summary ul{margin-bottom:0;padding-left:1.25rem}
+.gb-confirm-success{border-radius:10px}
+@media(max-width:575.98px){.gb-auth-page{padding:.5rem 0 2rem}.gb-auth-header{padding:1.7rem 1rem}.gb-auth-content{padding:1.4rem}.gb-auth-actions{flex-direction:column;align-items:stretch}.gb-auth-actions .btn{text-align:center;margin:0}}
