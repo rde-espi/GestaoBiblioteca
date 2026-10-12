@@ -3,6 +3,7 @@ using GestaoBiblioteca.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -73,6 +74,10 @@ namespace GestaoBiblioteca.Controllers
             if (model.Emprestimo.DataPrevistaDevolucao <= model.Emprestimo.DataEmprestimo)
             {
                 ModelState.AddModelError("Emprestimo.DataPrevistaDevolucao", "A data prevista de devolução deve ser posterior à data do empréstimo");
+            }
+            if(model.Emprestimo.DataEmprestimo < DateTime.Now)
+            {
+                ModelState.AddModelError("Emprestimo.DataEmprestimo", "A data de empréstimo não pode iniciar antes da data de hoje");
             }
 
             if (ModelState.IsValid)

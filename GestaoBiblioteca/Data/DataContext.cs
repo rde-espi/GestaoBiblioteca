@@ -45,6 +45,11 @@ namespace GestaoBiblioteca.Data
                 .WithMany()
                 .HasForeignKey(l => l.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<LivroAutor>()
+                .HasOne(la => la.Autor)
+                .WithMany(a => a.LivrosAutores)
+                .HasForeignKey(la => la.AutorId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -2,7 +2,9 @@
 using GestaoBiblioteca.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 
 namespace GestaoBiblioteca.Controllers
@@ -120,9 +122,22 @@ namespace GestaoBiblioteca.Controllers
                 return NotFound();
             }
 
-            await _autorRepository.DeleteAsync(autor);
+            try
+            {
+                await _autorRepository.DeleteAsync(autor);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.Message.Contains("DELETE"))
+                {
+                    ViewBag.ErrorTitle = $"{autor.Nome} possui livros associados.";
 
-            return RedirectToAction(nameof(Index));
+                    ViewBag.ErrorMessage = $"O autor <strong>{autor.Nome}</strong> não pode ser eliminado porque possui livros associados.";
+                }
+
+                return View("Error");
+            }
         }
     }
 }

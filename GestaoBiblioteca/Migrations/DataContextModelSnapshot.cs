@@ -428,7 +428,7 @@ namespace GestaoBiblioteca.Migrations
                     b.HasOne("GestaoBiblioteca.Data.Entities.Autor", "Autor")
                         .WithMany("LivrosAutores")
                         .HasForeignKey("AutorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("GestaoBiblioteca.Data.Entities.Livro", "Livro")
