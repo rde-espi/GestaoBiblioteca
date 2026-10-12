@@ -75,7 +75,7 @@ namespace GestaoBiblioteca.Controllers
             {
                 ModelState.AddModelError("Emprestimo.DataPrevistaDevolucao", "A data prevista de devolução deve ser posterior à data do empréstimo");
             }
-            if(model.Emprestimo.DataEmprestimo < DateTime.Now)
+            if(model.Emprestimo.DataEmprestimo <= DateTime.Now)
             {
                 ModelState.AddModelError("Emprestimo.DataEmprestimo", "A data de empréstimo não pode iniciar antes da data de hoje");
             }
